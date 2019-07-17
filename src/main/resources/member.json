@@ -1,0 +1,32 @@
+{
+  "id" : 1,
+  "name" : "Shahbaz Alam",
+  "image" : "../../../img.jpg",
+  "short_bio" : "Software Engineer",
+  "full_bio" : "I am a fun loving....",
+  "designation" : "Software Engineer in Dell EMC",
+  "phoneNo" : "+919239243161",
+  "emailId" : "shahbazalam03@gmail.com",
+  "dob" : "03-01-1990",
+  "city" : "Kolkata",
+  "country" : "India",
+  "education" : [
+    {
+      "degree" : "B-Tech",
+      "major" : "Computer Science",
+      "yearOfPassing" : "2012",
+      "institute" : "Seacom Engg College",
+      "university" : "WBUT"
+    },
+    {
+      "degree" : "Higher Secondary",
+      "major" : "Science",
+      "yearOfPassing" : "2008",
+      "institute" : "National High School",
+      "university" : "WBCHSE"
+    }
+  ],
+  "memberSince" : "2008",
+  "communities" : ["Literary", "Nature"],
+  "interests" : ["Reading", "Writing"]
+}
