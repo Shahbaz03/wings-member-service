@@ -28,5 +28,15 @@
   ],
   "memberSince" : "2008",
   "communities" : ["Literary", "Nature"],
-  "interests" : ["Reading", "Writing"]
+  "interests" : ["Reading", "Writing"],
+  "socialMedia" : [
+    {
+      "name" : "LinkedIn",
+      "link" : "https://linkedin.com/shahbaz"
+    },
+    {
+      "name" : "Blog",
+      "link" : "https://wordpress.com/shahbaz"
+    }
+  ]
 }
