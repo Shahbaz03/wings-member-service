@@ -1,15 +1,17 @@
-package com.wings.member.model;
+package com.wings.member.data;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public class Member {
     @Id
+    private String _id;
+    @Indexed(unique = true)
     private String emailId;
     private String firstName;
     private String lastName;
-    private String password;
     private String phoneNo;
     private String shortBio;
     private String fullBio;
@@ -21,41 +23,42 @@ public class Member {
     private String occupation;
     private boolean admin;
     private String memberSince;
+    private Subscription subscription;
     private String[] communities;
     private String[] interests;
     private Education[] education;
     private SocialMedia[] socialMedia;
 
-    public String getFirstName() {
-        return firstName;
+    public String get_id() {
+        return _id;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getEmailId() {
-        return emailId;
+        return emailId.toLowerCase();
     }
 
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
 
-    public String getPassword() {
-        return password;
+    public String getFirstName() {
+        return firstName.toLowerCase();
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName.toLowerCase();
+    }
+
+    public String getLastName() {
+        return lastName.toLowerCase();
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName.toLowerCase();
     }
 
     public String getPhoneNo() {
@@ -146,6 +149,14 @@ public class Member {
         this.memberSince = memberSince;
     }
 
+    public Subscription getSubscription() {
+        return subscription;
+    }
+
+    public void setSubscription(Subscription subscription) {
+        this.subscription = subscription;
+    }
+
     public String[] getCommunities() {
         return communities;
     }
@@ -176,5 +187,15 @@ public class Member {
 
     public void setSocialMedia(SocialMedia[] socialMedia) {
         this.socialMedia = socialMedia;
+    }
+
+    public Member() {
+
+    }
+
+    public Member(String emailId, String firstName, String lastName) {
+        this.emailId = emailId;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 }

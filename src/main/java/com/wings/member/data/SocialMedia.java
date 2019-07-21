@@ -1,4 +1,4 @@
-package com.wings.member.model;
+package com.wings.member.data;
 
 public class SocialMedia {
     private String name;

@@ -1,17 +1,14 @@
 package com.wings.member.repository;
 
-import com.wings.member.model.Member;
+import com.wings.member.data.Member;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface MemberRepository extends MongoRepository<Member, Integer> {
-    //List<Member> findAll();
+public interface MemberRepository extends MongoRepository<Member, String> {
+    Member findByEmailId(String emailId);
 
-    //Member findById(Integer id);
+    List<Member> findByFirstName(String firstName);
 
-    //List<Member> findByName(String name);
-
-    //Member save(Member member);
-
+    List<Member> findByLastName(String lastName);
 }

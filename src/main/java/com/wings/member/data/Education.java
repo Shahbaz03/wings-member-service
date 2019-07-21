@@ -1,4 +1,4 @@
-package com.wings.member.model;
+package com.wings.member.data;
 
 public class Education {
     private String degree;
