@@ -5,4 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface CredentialsRepository extends MongoRepository<Credentials, String> {
     Credentials findByEmailId(String emailId);
+
+    void deleteByEmailId(String emailId);
 }

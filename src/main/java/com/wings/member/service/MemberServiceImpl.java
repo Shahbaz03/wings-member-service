@@ -60,6 +60,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void deleteMember(String id) {
+        Member member = memberRepository.findOne(id);
+        credentialsRepository.deleteByEmailId(member.getEmailId());
         memberRepository.delete(id);
     }
 
