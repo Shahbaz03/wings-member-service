@@ -5,10 +5,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class Credentials {
+    private String _id;
     @Indexed(unique = true)
     private String emailId;
     private String passwordHashed;
-    private String salt;
+    private String resetToken;
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
 
     public String getEmailId() {
         return emailId;
@@ -26,17 +35,16 @@ public class Credentials {
         this.passwordHashed = passwordHashed;
     }
 
-    public String getSalt() {
-        return salt;
+    public String getResetToken() {
+        return resetToken;
     }
 
-    public void setSalt(String salt) {
-        this.salt = salt;
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
     }
 
-    public Credentials(String emailId, String passwordHashed, String salt) {
+    public Credentials(String emailId, String passwordHashed) {
         this.emailId = emailId;
         this.passwordHashed = passwordHashed;
-        this.salt = salt;
     }
 }

@@ -1,10 +1,18 @@
 package com.wings.member.model;
 
+import javax.validation.constraints.NotNull;
+
 public class RegistrationDO {
+    @NotNull
     private String emailId;
+    @NotNull
     private String password;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
+    @NotNull
+    private String yearOfPassing12;
 
     public String getEmailId() {
         return emailId.toLowerCase();
@@ -36,5 +44,13 @@ public class RegistrationDO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getYearOfPassing12() {
+        return yearOfPassing12;
+    }
+
+    public void setYearOfPassing12(String yearOfPassing12) {
+        this.yearOfPassing12 = yearOfPassing12;
     }
 }

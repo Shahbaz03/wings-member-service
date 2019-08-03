@@ -4,6 +4,7 @@ import com.wings.member.data.Credentials;
 import com.wings.member.model.CredentialsDO;
 import com.wings.member.model.MemberDO;
 import com.wings.member.model.RegistrationDO;
+import com.wings.member.model.UpdatePasswordDO;
 
 import java.util.List;
 import java.util.Map;
@@ -22,4 +23,12 @@ public interface MemberService {
     MemberDO register(RegistrationDO registration);
 
     MemberDO login(CredentialsDO credentialsDO);
+
+    void initiateForgotPasswordFlow(String emailId);
+
+    void verifyResetToken(String resetToken);
+
+    void updatePassword(String resetToken, String password);
+
+    void updatePassword(UpdatePasswordDO updatePasswordDO);
 }

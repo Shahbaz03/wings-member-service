@@ -7,4 +7,6 @@ public interface CredentialsRepository extends MongoRepository<Credentials, Stri
     Credentials findByEmailId(String emailId);
 
     void deleteByEmailId(String emailId);
+
+    Credentials findByResetToken(String resetToken);
 }

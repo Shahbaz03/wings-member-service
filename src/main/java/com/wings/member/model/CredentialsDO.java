@@ -1,15 +1,19 @@
 package com.wings.member.model;
 
+import javax.validation.constraints.NotNull;
+
 public class CredentialsDO {
-    private String email_id;
+    @NotNull
+    private String emailId;
+    @NotNull
     private String password;
 
-    public String getEmail_id() {
-        return email_id.toLowerCase();
+    public String getEmailId() {
+        return emailId;
     }
 
-    public void setEmailId(String email_id) {
-        this.email_id = email_id;
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
     }
 
     public String getPassword() {

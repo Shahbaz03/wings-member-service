@@ -2,12 +2,11 @@ package com.wings.member.service;
 
 import com.wings.member.data.Credentials;
 import com.wings.member.data.Member;
-import com.wings.member.exception.EmailIdNotFoundException;
-import com.wings.member.exception.LoginFailedException;
-import com.wings.member.exception.MemberNotFoundException;
+import com.wings.member.exception.*;
 import com.wings.member.model.CredentialsDO;
 import com.wings.member.model.MemberDO;
 import com.wings.member.model.RegistrationDO;
+import com.wings.member.model.UpdatePasswordDO;
 import com.wings.member.repository.CredentialsRepository;
 import com.wings.member.repository.MemberRepository;
 import com.wings.member.utils.Converter;
@@ -19,9 +18,12 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Component
 public class MemberServiceImpl implements MemberService {
+    @Autowired
+    private EmailService emailService;
     @Autowired
     private MemberRepository memberRepository;
     @Autowired
@@ -74,12 +76,12 @@ public class MemberServiceImpl implements MemberService {
     public MemberDO register(RegistrationDO registration) {
         registerCredentials(registration.getEmailId(), registration.getPassword());
         return registerMember(new Member(
-                registration.getEmailId(), registration.getFirstName(), registration.getLastName()));
+                registration.getEmailId(), registration.getFirstName(), registration.getLastName(), registration.getYearOfPassing12()));
     }
 
     @Override
     public MemberDO login(CredentialsDO credentialsDO) {
-        Credentials credentials = emailIdExist(credentialsDO.getEmail_id());
+        Credentials credentials = emailIdExist(credentialsDO.getEmailId());
         if (credentials == null) {
             throw new EmailIdNotFoundException();
         }
@@ -87,9 +89,61 @@ public class MemberServiceImpl implements MemberService {
         if (!loginSuccessful) {
             throw new LoginFailedException();
         }
-        return Converter.convertToMemberDO(memberRepository.findByEmailId(credentialsDO.getEmail_id()));
+        return Converter.convertToMemberDO(memberRepository.findByEmailId(credentialsDO.getEmailId()));
     }
 
+    @Override
+    public void initiateForgotPasswordFlow(String emailId) {
+        Credentials credentials = emailIdExist(emailId);
+        if (credentials == null) {
+            throw new EmailIdNotFoundException();
+        }
+
+        String resetToken = UUID.randomUUID().toString();
+        credentials.setResetToken(resetToken);
+        credentialsRepository.save(credentials);
+
+        emailService.sendResetPasswordEmail(emailId, resetToken);
+    }
+
+    @Override
+    public void verifyResetToken(String resetToken) {
+        getCredentialsByResetToken(resetToken);
+    }
+
+    @Override
+    public void updatePassword(String resetToken, String password) {
+        Credentials credentials = getCredentialsByResetToken(resetToken);
+        String hashedPwd = generateHashedPassword(password);
+        credentials.setResetToken(null);
+        credentials.setPasswordHashed(hashedPwd);
+
+        credentialsRepository.save(credentials);
+    }
+
+    @Override
+    public void updatePassword(UpdatePasswordDO updatePasswordDO) {
+        Credentials credentials = emailIdExist(updatePasswordDO.getEmailId());
+        if (credentials == null) {
+            throw new EmailIdNotFoundException();
+        }
+        if (!BCrypt.checkpw(
+                updatePasswordDO.getOldPassword(), credentials.getPasswordHashed())) {
+            throw new InvalidPasswordException();
+        }
+        credentials.setPasswordHashed(
+                generateHashedPassword(updatePasswordDO.getNewPassword()));
+
+        credentialsRepository.save(credentials);
+    }
+
+    private Credentials getCredentialsByResetToken(String resetToken) {
+        Credentials credentials = credentialsRepository.findByResetToken(resetToken);
+        if (credentials == null) {
+            throw new InvalidResetTokenException();
+        }
+        return credentials;
+    }
 
     private MemberDO registerMember(Member member) {
         return Converter.convertToMemberDO(
@@ -97,8 +151,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     private void registerCredentials(String emailId, String password) {
+        String hashedPwd = generateHashedPassword(password);
+        credentialsRepository.save(new Credentials(emailId, hashedPwd));
+    }
+
+    private String generateHashedPassword(String password) {
         String salt = BCrypt.gensalt();
-        String hashedPwd = BCrypt.hashpw(password, salt);
-        credentialsRepository.save(new Credentials(emailId, hashedPwd, salt));
+        return BCrypt.hashpw(password, salt);
     }
 }

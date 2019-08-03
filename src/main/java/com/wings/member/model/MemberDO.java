@@ -4,14 +4,22 @@ import com.wings.member.data.Education;
 import com.wings.member.data.SocialMedia;
 import com.wings.member.data.Subscription;
 
+import javax.validation.constraints.NotNull;
+
 public class MemberDO {
+    @NotNull
     private String _id;
-    private String email_id;
-    private String first_name;
-    private String last_name;
-    private String phone_no;
-    private String short_bio;
-    private String full_bio;
+    @NotNull
+    private String emailId;
+    @NotNull
+    private String firstName;
+    @NotNull
+    private String lastName;
+    private String phoneNo;
+    private String shortBio;
+    private String fullBio;
+    @NotNull
+    private String yearOfPassing12;
     private String dOb;
     private String gender;
     private String city;
@@ -19,12 +27,12 @@ public class MemberDO {
     private String image;
     private String occupation;
     private boolean admin;
-    private String member_since;
+    private String memberSince;
     private Subscription subscription;
     private String[] communities;
     private String[] interests;
     private Education[] education;
-    private SocialMedia[] social_media;
+    private SocialMedia[] socialMedia;
 
     public String get_id() {
         return _id;
@@ -34,52 +42,60 @@ public class MemberDO {
         this._id = _id;
     }
 
-    public String getEmail_id() {
-        return email_id;
+    public String getEmailId() {
+        return emailId;
     }
 
-    public void setEmail_id(String email_id) {
-        this.email_id = email_id;
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getPhone_no() {
-        return phone_no;
+    public String getPhoneNo() {
+        return phoneNo;
     }
 
-    public void setPhone_no(String phone_no) {
-        this.phone_no = phone_no;
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 
-    public String getShort_bio() {
-        return short_bio;
+    public String getShortBio() {
+        return shortBio;
     }
 
-    public void setShort_bio(String short_bio) {
-        this.short_bio = short_bio;
+    public void setShortBio(String shortBio) {
+        this.shortBio = shortBio;
     }
 
-    public String getFull_bio() {
-        return full_bio;
+    public String getFullBio() {
+        return fullBio;
     }
 
-    public void setFull_bio(String full_bio) {
-        this.full_bio = full_bio;
+    public void setFullBio(String fullBio) {
+        this.fullBio = fullBio;
+    }
+
+    public String getYearOfPassing12() {
+        return yearOfPassing12;
+    }
+
+    public void setYearOfPassing12(String yearOfPassing12) {
+        this.yearOfPassing12 = yearOfPassing12;
     }
 
     public String getdOb() {
@@ -138,12 +154,12 @@ public class MemberDO {
         this.admin = admin;
     }
 
-    public String getMember_since() {
-        return member_since;
+    public String getMemberSince() {
+        return memberSince;
     }
 
-    public void setMember_since(String member_since) {
-        this.member_since = member_since;
+    public void setMemberSince(String memberSince) {
+        this.memberSince = memberSince;
     }
 
     public Subscription getSubscription() {
@@ -178,11 +194,11 @@ public class MemberDO {
         this.education = education;
     }
 
-    public SocialMedia[] getSocial_media() {
-        return social_media;
+    public SocialMedia[] getSocialMedia() {
+        return socialMedia;
     }
 
-    public void setSocial_media(SocialMedia[] social_media) {
-        this.social_media = social_media;
+    public void setSocialMedia(SocialMedia[] socialMedia) {
+        this.socialMedia = socialMedia;
     }
 }

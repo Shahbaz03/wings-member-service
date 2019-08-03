@@ -22,6 +22,7 @@ public class Member {
     private String image;
     private String occupation;
     private boolean admin;
+    private String yearOfPassing12;
     private String memberSince;
     private Subscription subscription;
     private String[] communities;
@@ -141,6 +142,14 @@ public class Member {
         this.admin = admin;
     }
 
+    public String getYearOfPassing12() {
+        return yearOfPassing12;
+    }
+
+    public void setYearOfPassing12(String yearOfPassing12) {
+        this.yearOfPassing12 = yearOfPassing12;
+    }
+
     public String getMemberSince() {
         return memberSince;
     }
@@ -193,9 +202,10 @@ public class Member {
 
     }
 
-    public Member(String emailId, String firstName, String lastName) {
+    public Member(String emailId, String firstName, String lastName, String yearOfPassing12) {
         this.emailId = emailId;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.yearOfPassing12 = yearOfPassing12;
     }
 }
